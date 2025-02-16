@@ -61,7 +61,7 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.RMX3191
+    android.hardware.light-service.RMX3191
 
 # Biometrics
 PRODUCT_PACKAGES += \
