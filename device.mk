@@ -61,12 +61,12 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light-service.RMX3191
+    android.hardware.light@2.0-service.RMX3191
 
 # Biometrics
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.RMX3191
-
+    android.hardware.biometrics.fingerprint@2.3-service.RMX3191
+    
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.fingerprint.xml
 # Ramdisk

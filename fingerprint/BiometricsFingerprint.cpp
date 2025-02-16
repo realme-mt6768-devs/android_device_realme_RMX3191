@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.RMX3191"
-#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.RMX3191"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.3-service.RMX3242"
+#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.3-service.RMX3242"
 
+#include <android-base/properties.h>
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
 #include "BiometricsFingerprint.h"
@@ -25,11 +26,13 @@
 #include <utils/Log.h>
 #include <thread>
 
+using android::base::GetProperty;
+
 namespace android {
 namespace hardware {
 namespace biometrics {
 namespace fingerprint {
-namespace V2_1 {
+namespace V2_3 {
 namespace implementation {
 
 BiometricsFingerprint::BiometricsFingerprint() {
@@ -41,6 +44,10 @@ BiometricsFingerprint::BiometricsFingerprint() {
     if(mOplusBiometricsFingerprint == nullptr) exit(0);
 }
 
+static bool isFOD() {
+  // Check if ro.vendor.fp_type is set to "optical". If so, then we are in FOD mode.
+    return GetProperty("ro.vendor.fp_type", "") == "optical";
+}
 static bool receivedCancel;
 static bool receivedEnumerate;
 static uint64_t myDeviceId;
@@ -259,8 +266,21 @@ Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId, 
     return OplusToAOSPRequestStatus(mOplusBiometricsFingerprint->authenticate(operationId, gid));
 }
 
+Return<bool> BiometricsFingerprint::isUdfps(uint32_t /*sensorId*/) {
+    return isFOD();
+}
+
+Return<void> BiometricsFingerprint::onFingerDown(uint32_t /*x*/, uint32_t /*y*/, float /*minor*/,
+                                                 float /*major*/) {
+    return Void();
+}
+
+Return<void> BiometricsFingerprint::onFingerUp() {
+    return Void();
+}
+
 } // namespace implementation
-}  // namespace V2_1
+}  // namespace V2_3
 }  // namespace fingerprint
 }  // namespace biometrics
 }  // namespace hardware
