@@ -129,3 +129,9 @@ PRODUCT_PACKAGES += \
 # InCall Service
 PRODUCT_PACKAGES += \
     MtkInCallService
+    
+# Speed up
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    Launcher3QuickStep \
+    Settings \
+    SystemUI
