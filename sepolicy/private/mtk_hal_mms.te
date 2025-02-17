@@ -1,4 +1,4 @@
-type mtk_hal_mms_hwservice, hwservice_manager_type;
+
 
 # Allow untrusted_app_31 to find mtk_hal_mms_hwservice
 allow { appdomain -isolated_app } mtk_hal_mms_hwservice:hwservice_manager find;
